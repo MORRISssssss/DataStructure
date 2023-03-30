@@ -11,20 +11,20 @@ int main()
     float x;
     cout << "a: ";
     cin >> a;
-    cout << a << endl;
+    cout << "a(x) = " << a << endl;
     cout << "b: ";
     cin >> b;
-    cout << b << endl;
+    cout << "b(x) = " << b << endl;
     c = a.Add(b);
-    cout << "a + b = " << c << endl;
+    cout << "a(x) + b(x) = " << c << endl;
     d = a.Mult(b);
-    cout << "a * b = " << d << endl;
+    cout << "a(x) * b(x) = " << d << endl;
     cout << "x = ";
     cin >> x;
-    cout << "a(x) = " << a.Eval(x) << endl;
-    cout << "b(x) = " << b.Eval(x) << endl;
-    cout << "a(x) + b(x) = " << c.Eval(x) << endl;
-    cout << "a(x) * b(x) = " << d.Eval(x) << endl;
+    cout << "a(" << x << ") = " << a.Eval(x) << endl;
+    cout << "b(" << x << ") = " << b.Eval(x) << endl;
+    cout << "a(" << x << ") + b(" << x << ") = " << c.Eval(x) << endl;
+    cout << "a(" << x << ") * b(" << x << ") = " << d.Eval(x) << endl;
 
     return 0;
 }
