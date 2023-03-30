@@ -6,6 +6,8 @@ using namespace std;
 class Polynomial;
 class Term {
     friend Polynomial;
+    friend ostream& operator<<(ostream& os, const Polynomial& poly);
+    friend istream& operator>>(istream& is, Polynomial& poly);
     private:
         float coef;
         int exp;
@@ -18,21 +20,25 @@ class Polynomial {
         //construct the polynomial p(x) = 0
         Polynomial();
         //return the sum of *this and poly
-        Polynomial Add(const Polynomial);
+        Polynomial Add(const Polynomial poly);
         //return the product of *this and poly
-        Polynomial Mult(const Polynomial);
+        Polynomial Mult(const Polynomial poly);
         //Evaluate the polynomial *this at f and return the results
-        float Eval(const float);
+        float Eval(const float f);
         // if *this is the zero polynomial, return 1; else return 0;
         int operator!();
         // return the coefficient of e in *this
-        float Coef(const int);
+        float Coef(const int e);
         // return the largest exponent in *this
         int LeadExp();
         // Add a new term to the end of termArray
-        void NewTerm(const float, const int);
-        friend ostream& operator<<(ostream&, const Polynomial&);
-        friend istream& operator>>(istream&, Polynomial&);
+        void NewTerm(const float theCoef, const int theExp);
+        // clear all terms in *this
+        void ClearTerms();
+        // assign poly to *this
+        Polynomial& operator=(Polynomial poly);
+        friend ostream& operator<<(ostream& os, const Polynomial& poly);
+        friend istream& operator>>(istream& is, Polynomial& poly);
     private:
         Term *termArray;
         int capacity;
