@@ -19,7 +19,7 @@ Polynomial Polynomial::Add(const Polynomial b)
     Polynomial c; //c.terms = 0
     int aPos = 0, bPos = 0;
     while ((aPos < terms) && (bPos < b.terms)){
-            if (termArray[aPos].exp == b.termArray[bPos].exp) {
+        if (termArray[aPos].exp == b.termArray[bPos].exp) {
             float t = termArray[aPos].coef + b.termArray[bPos].coef;
             if (t) 
                 c.NewTerm(t, termArray[aPos].exp);
