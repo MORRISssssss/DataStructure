@@ -5,10 +5,8 @@ using namespace std;
 #define INIT_CAPACITY 5
 
 SparseMatrix::SparseMatrix(const int r = 0, const int c = 0, const int t = 0)
+    : rows(r), cols(c), terms(t)
 {
-    rows = r;
-    cols = c;
-    terms = t;
     capacity = INIT_CAPACITY;
     smArray = new MatrixTerm[capacity];
 }
@@ -195,5 +193,6 @@ istream& operator>>(istream& is, SparseMatrix& Matrix)
         is >> r >> c >> v;
         temp.StoreTerm(v, r, c);
     }
+    Matrix = temp;
     return is;
 }
