@@ -1,6 +1,6 @@
 #include "String.h"
 
-String::String(char *init = "", int m = 0)
+String::String(char *init = {}, int m = 0)
 {
     str = new char[m];
     copy(init, init + m, str);
@@ -178,5 +178,9 @@ ostream& operator<<(ostream& os, String& t)
 
 istream& operator>>(istream& is, String& t)
 {
-
+    const int SIZE = 10000;
+    char temp[SIZE];
+    is.getline(temp, SIZE);
+    t.str = temp;
+    return is;
 }
