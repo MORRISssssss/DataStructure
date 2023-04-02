@@ -1,12 +1,14 @@
 #include "String.h"
 
-String::String(char *init = {}, int m = 0)
+char null = '\0';
+
+String::String(const char *init = &null, const int m = 0)
 {
-    str = new char[m];
-    copy(init, init + m, str);
+    str = new char[m + 1];
+    copy(init, init + m + 1 , str);
 }
 
-bool String::operator==(String t)
+bool String::operator ==(const String t) const
 {
     int len = Length();
     if (len != t.Length())
@@ -18,7 +20,7 @@ bool String::operator==(String t)
     return true;
 }
 
-bool String::operator!()
+bool String::operator!() const
 {
     if (*str)
         return true;
@@ -26,7 +28,7 @@ bool String::operator!()
         return false;
 }
 
-int String::Length()
+int String::Length() const
 {
     int len = 0;
     char *temp = str;
@@ -37,34 +39,32 @@ int String::Length()
     return len;
 }
 
-String String::Concat(String t)
+String String::Concat(const String t) const
 {
     int lenA = Length();
     int lenB = t.Length();
-    char *temp = new char[lenA + lenB];
-    for (int i = 0; i < lenA; i++)
-        temp[i] = str[i];
-    for (int i = 0; i < lenB; i++)
-        temp[lenA + i] = t.str[i];
-        
+    char *temp = new char[lenA + lenB + 1];
+    copy(str, str + lenA + 1, temp);
+    copy(t.str, t.str + lenB + 1, temp + lenA);
     String s(temp, lenA + lenB);
     delete [] temp;
     return s;
 }
 
-String String::Substr(int i, int j)
+String String::Substr(const int start, const int length) const
 {
-    char *temp = new char[j];
-    copy(str + i, str + i + j, temp);
-    String s(temp, j);
+    char *temp = new char[length + 1];
+    copy(str + start, str + start + length, temp);
+    temp[length] = '\0';
+    String s(temp, length);
     delete [] temp;
     return s;
 
 }
 
-int String::Find(String pat)
+int String::Find(String pat) const
 {
-    FailureFunction();
+    pat.FailureFunction();
     int posP = 0, posS = 0;
     int lengthP = pat.Length(), lengthS = Length();
     while (posP < lengthP && posS < lengthS){
@@ -85,35 +85,32 @@ int String::Find(String pat)
 
 }
 
-String String::Delete(int start, int length)
+String String::Delete(const int start, const int length) const
 {
     int lenS = Length();
-    char *front = new char[start];
-    char *back = new char[lenS - start - length];
-    copy(str, str + start, front);
-    copy(str + start + length, str + lenS, back);
-    String Front(front, start);
-    String Back(back, lenS - start - length);
-    delete [] front;
-    delete [] back;
-    return Front.Concat(Back);
+    String front, back;
+    front = Substr(0, start);
+    back = Substr(start + length, lenS - start - length);
+    return front.Concat(back);
 }
 
-String String::CharDelete(char c)
+String String::CharDelete(const char c) const
 {
     String s;
-    int start = 0;
-    for (int i = 0; i < Length(); i++){
-        if (str[i] == c){
-            s.Concat(Substr(start, i - start));
-            start = i + 1;
+    s.str = new char[Length() + 1];
+    copy(str, str + Length() + 1, s.str);
+    int i = 0;
+    while (s.str[i]){
+        if (s.str[i] == c){
+            s = s.Delete(i, 1);
+        }else {
+            i++;
         }
     }
-    s.Concat(Substr(start, Length() - start - 1));
     return s;
 }
 
-int String::Compare(String y)
+int String::Compare(const String y) const
 {
     int lenX = Length();
     int lenY = y.Length();
@@ -144,11 +141,11 @@ int String::Compare(String y)
     }
 }
 
-String& String::operator = (String t)
+String& String::operator = (const String t)
 {
     int len = t.Length();
-    char *temp = new char[len];
-    copy(t.str, t.str + len, temp);
+    char *temp = new char[len + 1];
+    copy(t.str, t.str + len + 1, temp);
     delete [] str;
     str = temp;
     return *this;
@@ -157,6 +154,7 @@ String& String::operator = (String t)
 void String::FailureFunction()
 {
     int lengthP = Length();
+    f = new int[lengthP];
     f[0] = -1;
     for (int j = 1; j < lengthP; j++){
         int i = f[j - 1];
@@ -167,10 +165,9 @@ void String::FailureFunction()
         else
             f[j] = -1;
     }
-
 }
 
-ostream& operator<<(ostream& os, String& t)
+ostream& operator<<(ostream& os, const String& t)
 {
     os << t.str;
     return os;
@@ -179,8 +176,9 @@ ostream& operator<<(ostream& os, String& t)
 istream& operator>>(istream& is, String& t)
 {
     const int SIZE = 10000;
-    char temp[SIZE];
-    is.getline(temp, SIZE);
-    t.str = temp;
+    char *iLine = new char[SIZE];
+    is.getline(iLine, SIZE);
+    delete [] t.str;
+    t.str = iLine;
     return is;
 }

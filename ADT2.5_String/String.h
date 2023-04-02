@@ -7,29 +7,29 @@ class String
 {
 public:
     // constructor using input string init of length m
-    String(char *init, int m);
+    String(const char *init, const int m);
     //equality test
-    bool operator == (String t);
+    bool operator == (const String t) const;
     // empty test, true or false
-    bool operator!( ); 
+    bool operator!( ) const; 
     // get the number of characters of *this
-    int Length( );
+    int Length( ) const;
     // concatenation with another string t
-    String Concat(String t);  
+    String Concat(const String t) const;  
     // generate a substring i~i+j-1
-    String Substr(int i, int j);  
+    String Substr(const int start, const int length) const;  
     // Return an index i such that pat matches the substring
     // of the object begins at position i. Return -1 if pat
     // is empty or not a substring of the object
-    int Find(String pat);
+    int Find(String pat) const;
     // remove length characters beginning at start
-    String Delete(int start, int length); 
+    String Delete(const int start, const int length) const; 
     // returns the string with all occurrence of c removed.
-    String CharDelete(char c);
+    String CharDelete(const char c) const;
     // compare two strings of letters of alphabet.
-    int Compare(String y); 
-    String& operator = (String t);
-    friend ostream& operator<<(ostream& os, String& t);
+    int Compare(const String y) const; 
+    String& operator = (const String t);
+    friend ostream& operator<<(ostream& os, const String& t);
     friend istream& operator>>(istream& is, String& t);
 
 private:
