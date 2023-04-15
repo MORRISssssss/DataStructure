@@ -9,6 +9,9 @@ int main()
     Polynomial c;
     Polynomial d;
     float x;
+    cout << "Input polynomial a in descending power: " << endl;
+    cout << "ex: coef0 exp0 coef1 exp1 ..." << endl;
+    cout << "ex(x) = coef0x^exp0 + coef1x^exp1 + ... " << endl;
     cout << "a: ";
     cin >> a;
     cout << "a(x) = " << a << endl;

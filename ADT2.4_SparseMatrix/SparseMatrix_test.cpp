@@ -6,6 +6,11 @@ using namespace std;
 int main()
 {
     SparseMatrix A, B;
+    cout << "Enter sparse matrix in the following form: " << endl;
+    cout << "> rows cols terms" << endl;
+    cout << "> row0 col0 value0" << endl;
+    cout << "> row1 col1 value1" << endl;
+    cout << "> ..." << endl;
     cout << "Enter sparse matrix A: " << endl;
     cin >> A;
     cout << "Matrix A: " << endl;
