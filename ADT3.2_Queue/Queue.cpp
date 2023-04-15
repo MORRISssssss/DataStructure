@@ -1,4 +1,5 @@
 #include <iostream>
+#include <stack>
 #include "Queue.h"
 using namespace std;
 
@@ -124,6 +125,23 @@ Queue<T> Queue<T>::Merge(const Queue<T>& q) const
 }
 
 template <class T>
+Queue<T> Queue<T>::ReverseQueue()
+{
+    stack<T> s;
+    Queue<T> q(5);
+    q = *this;
+    while (!q.IsEmpty()){
+        s.push(q.Front());
+        q.Pop();
+    }
+    while (!s.empty()){
+        q.Push(s.top());
+        s.pop();
+    }
+    return q;
+}
+
+template <class T>
 ostream &operator<< (ostream &os, const Queue<T> &t)
 {
     Queue<T> q(5);
@@ -140,33 +158,3 @@ ostream &operator<< (ostream &os, const Queue<T> &t)
     os << ")";
     return os;
 }
-/*
-int main()
-{
-    Queue<int> q1(5), q2(5);
-    cout << "q1 = (), q2 = ()" << endl;
-    cout << "q1.Push(1);" << endl;
-    q1.Push(1);
-    cout << "q1.Push(2);" << endl;
-    q1.Push(2);
-    cout << "q1.Push(3);" << endl;
-    q1.Push(3);
-    cout << "q1.Pop();" << endl;
-    q1.Pop();
-    cout << "q1.Pop();" << endl;
-    q1.Pop();
-    cout << "q1.Push(4);" << endl;
-    q1.Push(4);
-    cout << "q1.Push(5);" << endl;
-    q1.Push(5);
-    cout << "q1 = " << q1 << endl;
-    cout << "q1.Front() = " << q1.Front() << endl;
-    cout << "q1.Rear() = " << q1.Rear() << endl;
-    cout << "q1.Size() = " << q1.Size() << endl;
-    cout << "q1.Capacity() = " << q1.Capacity() << endl;
-    for (int i = 99; i > 94; i--)
-        q2.Push(i);
-    cout << "q2 = " << q2 << endl;
-    cout << "q1.Merge(q2) = " << q1.Merge(q2) << endl;
-    return 0;
-}*/
