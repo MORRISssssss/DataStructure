@@ -47,7 +47,7 @@ void Queue<T>::ChangeCapacity(int newCapacity)
         copy(queue + start, queue + start + capacity - 1, newQu);
     else{
         copy(queue + start, queue + capacity, newQu);
-        copy(queue, queue + rear + 1,newQu + capacity - start);
+        copy(queue, queue + rear + 1, newQu + capacity - start);
     }
     front = newCapacity - 1;
     rear = capacity - 2;
