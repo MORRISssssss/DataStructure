@@ -215,8 +215,8 @@ void Deque<T>::PushFront(const T &item)
 {
     if ((this->front - 1) % this->capacity == this->rear)
         this->ChangeCapacity(2 * this->capacity);
-    this->front = (this->front - 1) % this->capacity; 
-    this->array[this->front - 1] = item;
+    this->array[this->front] = item;
+    this->front = ((this->front + this->capacity) - 1) % this->capacity; 
 }
 
 template <class T>
@@ -242,7 +242,7 @@ void Deque<T>::PopRear()
 {
     if (this->IsEmpty()) 
         throw "Queue is empty, cannot delete";
-    this->rear = (this->rear - 1) % this->capacity;
+    this->rear = ((this->rear % this->capacity) - 1) % this->capacity;
     this->array[this->rear + 1].~T();
 }
 
