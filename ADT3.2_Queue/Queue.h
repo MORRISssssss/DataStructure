@@ -30,7 +30,8 @@ class Queue
         // merge two queue into one
         Queue<T> Merge(const Queue<T>& q) const;
         Queue<T> ReverseQueue();
-        friend ostream& operator<< <>(ostream& os, const Queue<T>& t);
+        template <class U>
+        friend ostream& operator<<(ostream& os, const Queue<U>& t);
     private:
         T* queue;
         int front, rear, capacity;

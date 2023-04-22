@@ -21,17 +21,20 @@ class Bag
 };
 
 template <class T>
-class Stack: public Bag
+class Stack: public Bag<T>
 {
     public:
         Stack (int stackCapacity = 10);
         ~Stack();
         T& Top() const;
         void Pop();
+        Stack<T>& operator=(const Stack<T>& rhs);
+        template <class U>
+        friend ostream& operator<<(ostream& os, const Stack<U>& rhs);
 };
 
 template <class T>
-class Queue: public Bag
+class Queue: public Bag<T>
 { 
     public:
         Queue(int queueCapacity = 10);
@@ -42,20 +45,27 @@ class Queue: public Bag
         void Pop();
         virtual T& Front() const;    
         virtual T& Rear() const;
+        Queue<T>& operator=(const Queue<T>& rhs);
+        template <class U>
+        friend ostream& operator<<(ostream& os, const Queue<U>& rhs);
     protected:
         int front, rear;
         virtual void ChangeCapacity(int newCapacity);
 };
 
 template <class T>
-class Deque: public Queue
+class Deque: public Queue<T>
 {
-    Deque(int dequeCapacity = 10);
-    ~Deque();
-    void PushFront(const T& item);
-    void PushRear(const T& item);
-    void PopFront();
-    void PopRear();
+    public:
+        Deque(int dequeCapacity = 10);
+        ~Deque();
+        void PushFront(const T& item);
+        void PushRear(const T& item);
+        void PopFront();
+        void PopRear();
+        Deque<T>& operator=(const Deque<T>& rhs);
+        template <class U>
+        friend ostream& operator<<(ostream& os, const Deque<U>& rhs);
 };
 
 #endif
