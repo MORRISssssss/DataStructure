@@ -42,7 +42,7 @@ void Bag<T>::ChangeCapacity(int newCapacity)
 {
     if (newCapacity < capacity) 
         throw "The new capacity cannot be less than the origin one.";
-    T* newArray = new T[newCapacity];\
+    T* newArray = new T[newCapacity];
     copy(array, array + Size(), newArray);
     delete [] array;
     array = newArray; 
